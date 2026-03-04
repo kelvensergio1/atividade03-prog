@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity, } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -33,22 +33,22 @@ function Login({ navigation }) {
         secureTextEntry
         value={senha}
         onChangeText={setSenha}
-      />  {}
+      />
 
       <TouchableOpacity
         style={styles.botaoVermelho}
         onPress={() => navigation.navigate('Lista')}>
         <Text style={styles.textoBotao}>LOGIN</Text>
-        </TouchableOpacity>
+      </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.botaoAzul}
         onPress={() => navigation.navigate('CadastroUsuario')}>
         <Text style={styles.textoBotao}>CADASTRE-SE</Text>
-        </TouchableOpacity>
+      </TouchableOpacity>
     </SafeAreaView>
-
-  ); }
+  );
+}
 
 
 // TELA DE LISTA DE CONTATOS 
@@ -62,9 +62,17 @@ function Lista({ navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      
       <View style={styles.header}>
+        
+        {/* BOTÃO VOLTAR */}
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <FontAwesome name="arrow-left" size={22} color="#fff" />
+        </TouchableOpacity>
+
         <Text style={styles.headerText}>LISTA DE CONTATOS</Text>
 
+        {/* BOTÃO ADICIONAR */}
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('CadastroContato', { setContatos, contatos })
@@ -72,6 +80,7 @@ function Lista({ navigation }) {
         >
           <FontAwesome name="plus" size={22} color="#fff" />
         </TouchableOpacity>
+
       </View>
 
       <ScrollView>
@@ -93,12 +102,13 @@ function Lista({ navigation }) {
           </TouchableOpacity>
         ))}
       </ScrollView>
+
     </SafeAreaView>
   );
 }
 
 
-//TELA DE CADASTRO DE USUÁRIOS 
+// TELA DE CADASTRO DE USUÁRIOS 
 
 function CadastroUsuario({ navigation }) {
   return (
@@ -113,7 +123,6 @@ function CadastroUsuario({ navigation }) {
 
         <View style={{ width: 22 }} />
       </View>
-
 
       <View style={styles.container}>
         <TextInput style={styles.input} placeholder="nome" />
@@ -131,7 +140,7 @@ function CadastroUsuario({ navigation }) {
 }
 
 
-//TELA DE CADASTRO DE CONTATOS 
+// TELA DE CADASTRO DE CONTATOS 
 
 function CadastroContato({ navigation, route }) {
   const [nome, setNome] = useState('');
@@ -147,19 +156,32 @@ function CadastroContato({ navigation, route }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.titulo}>CADASTRO DE CONTATO</Text>
+    <SafeAreaView style={{ flex: 1 }}>
 
-      <TextInput style={styles.input} placeholder="Nome" onChangeText={setNome} />
-      <TextInput style={styles.input} placeholder="Email" onChangeText={setEmail} />
-      <TextInput style={styles.input} placeholder="Telefone" onChangeText={setTelefone} />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <FontAwesome name="arrow-left" size={22} color="#fff" />
+        </TouchableOpacity>
 
-      <TouchableOpacity style={styles.botaoAzul} onPress={salvar}>
-        <Text style={styles.textoBotao}>Salvar</Text>
-      </TouchableOpacity>
+        <Text style={styles.headerText}>Cadastro Contato</Text>
+
+        <View style={{ width: 22 }} />
+      </View>
+
+      <View style={styles.container}>
+        <TextInput style={styles.input} placeholder="Nome" onChangeText={setNome} />
+        <TextInput style={styles.input} placeholder="Email" onChangeText={setEmail} />
+        <TextInput style={styles.input} placeholder="Telefone" onChangeText={setTelefone} />
+
+        <TouchableOpacity style={styles.botaoAzul} onPress={salvar}>
+          <Text style={styles.textoBotao}>Salvar</Text>
+        </TouchableOpacity>
+      </View>
+
     </SafeAreaView>
   );
 }
+
 
 // TELA DE ALTERAR E EXCLUIR CONTATOS
 
@@ -184,32 +206,46 @@ function AlterarExcluir({ navigation, route }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.titulo}>ALTERAÇÃO / EXCLUSÃO DE CONTATOS</Text>
+    <SafeAreaView style={{ flex: 1 }}>
 
-      <TextInput style={styles.input} value={nome} onChangeText={setNome} />
-      <TextInput style={styles.input} value={email} onChangeText={setEmail} />
-      <TextInput style={styles.input} value={telefone} onChangeText={setTelefone} />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <FontAwesome name="arrow-left" size={22} color="#fff" />
+        </TouchableOpacity>
 
-      <TouchableOpacity style={styles.botaoAzul} onPress={alterar}>
-        <Text style={styles.textoBotao}>Alterar</Text>
-      </TouchableOpacity>
+        <Text style={styles.headerText}>Alterar / Excluir</Text>
 
-      <TouchableOpacity style={styles.botaoVermelho} onPress={excluir}>
-        <Text style={styles.textoBotao}>Excluir</Text>
-      </TouchableOpacity>
+        <View style={{ width: 22 }} />
+      </View>
+
+      <View style={styles.container}>
+        <TextInput style={styles.input} value={nome} onChangeText={setNome} />
+        <TextInput style={styles.input} value={email} onChangeText={setEmail} />
+        <TextInput style={styles.input} value={telefone} onChangeText={setTelefone} />
+
+        <TouchableOpacity style={styles.botaoAzul} onPress={alterar}>
+          <Text style={styles.textoBotao}>Alterar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.botaoVermelho} onPress={excluir}>
+          <Text style={styles.textoBotao}>Excluir</Text>
+        </TouchableOpacity>
+      </View>
+
     </SafeAreaView>
   );
 }
 
+
 // ------------ FUNÇÕES DO APP ------------
+
 export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Lista" component={Lista} options={{headerTitleAlign: 'center'}}/>
+          <Stack.Screen name="Lista" component={Lista} />
           <Stack.Screen name="CadastroUsuario" component={CadastroUsuario} />
           <Stack.Screen name="CadastroContato" component={CadastroContato} />
           <Stack.Screen name="AlterarExcluir" component={AlterarExcluir} />
@@ -220,8 +256,8 @@ export default function App() {
 }
 
 
-
 //  FORMATAÇÃO
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
