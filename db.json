@@ -2,26 +2,26 @@
   "usuarios": [
     {
       "id": "d0ad",
-      "nome": "Guilherme Manuel",
-      "cpf": "13274562322",
-      "email": "guilhermemanuel445@gmail.com",
-      "senha": "guilherme0708"
+      "nome": "Kelven Sergio",
+      "cpf": "1412243456",
+      "email": "kelvensergio10@gmail.com",
+      "senha": "123456"
     },
     {
       "id": "0af1",
-      "nome": "Carlos Brazil",
-      "cpf": "3242345235",
-      "email": "carlos@gmail.com",
-      "senha": "123456"
+      "nome": "Afondo Agra",
+      "cpf": "3242389476",
+      "email": "Afonso@gmail.com",
+      "senha": "123456789"
     }
   ],
   "contatos": [
     {
       "id": "024b",
       "usuario_id": 1,
-      "nome": "Rodrigues Manuel",
-      "telefone": "81991258743",
-      "email": "rodrigues@gmail.com"
+      "nome": "Alvimar roberto",
+      "telefone": "81988425943",
+      "email": "Alvimar@gmail.com"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
