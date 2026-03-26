@@ -1,0 +1,28 @@
+{
+  "usuarios": [
+    {
+      "id": "d0ad",
+      "nome": "Guilherme Manuel",
+      "cpf": "13274562322",
+      "email": "guilhermemanuel445@gmail.com",
+      "senha": "guilherme0708"
+    },
+    {
+      "id": "0af1",
+      "nome": "Carlos Brazil",
+      "cpf": "3242345235",
+      "email": "carlos@gmail.com",
+      "senha": "123456"
+    }
+  ],
+  "contatos": [
+    {
+      "id": "024b",
+      "usuario_id": 1,
+      "nome": "Rodrigues Manuel",
+      "telefone": "81991258743",
+      "email": "rodrigues@gmail.com"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
