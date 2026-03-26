@@ -1,39 +1,31 @@
+import { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import api from '../services/api';
 
-import axios from 'axios';
-import { useState, useEffect} from 'react';
-import {View,Text,TextInput,Button,FlatList,TouchableOpacity,StyleSheet} from 'react-native';
+export default function CadastroContato({ navigation }) {
 
-
-export default function CadastroContato({ route, navigation }) {
-
- 
-  const [usuario_id, setUsuario_id] = useState(1);
+  const [usuario_id] = useState(1);
   const [nome, setNome] = useState('');
   const [telefone, setTelefone] = useState('');
   const [email, setEmail] = useState('');
 
-
   async function salvar() {
     try {
-      const contato = {
+      await api.post('/contatos', {
         usuario_id,
         nome,
         telefone,
         email
-      };
-
-      await axios.post('http://localhost:192.168.1.104/contatos', contato);
+      });
 
       alert('Contato cadastrado!');
       navigation.goBack();
 
     } catch (error) {
       console.log(error);
-      alert('Erro ao cadastrar usuário');
+      alert('Erro ao cadastrar contato');
     }
   }
-
-  
 
   return (
     <View style={styles.container}>
@@ -47,8 +39,6 @@ export default function CadastroContato({ route, navigation }) {
     </View>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -64,12 +54,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 5
-  },
-  item: {
-    padding: 10,
-    borderBottomWidth: 1
-  },
-  nome: {
-    fontWeight: 'bold'
   }
 });

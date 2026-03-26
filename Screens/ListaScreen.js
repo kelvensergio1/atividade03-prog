@@ -1,30 +1,41 @@
-
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   View,
   Text,
-  TextInput,
-  Button,
   FlatList,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  Button
 } from 'react-native';
-import axios from 'axios';
-
+import api from '../services/api';
 
 export default function Lista({ navigation }) {
 
-    const [contatos, setContatos] = useState([]);
+  const [contatos, setContatos] = useState([]);
 
-    useEffect(() => {
-      axios.get('http://localhost:3000/contatos')
-        .then(response => {
-          setContatos(response.data);
-        })
-        .catch(error => {
-          console.log('Erro ao buscar contatos:', error);
-        });
-    }, [contatos]);
+  function buscarContatos() {
+    api.get('/contatos')
+      .then(response => {
+        setContatos(response.data);
+      })
+      .catch(error => {
+        console.log('Erro ao buscar contatos:', error);
+      });
+  }
+
+  function deletarContato(id) {
+    api.delete(`/contatos/${id}`)
+      .then(() => {
+        buscarContatos(); // atualiza após deletar
+      })
+      .catch(error => {
+        console.log('Erro ao deletar:', error);
+      });
+  }
+
+  useEffect(() => {
+    buscarContatos();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -32,47 +43,30 @@ export default function Lista({ navigation }) {
 
       <FlatList
         data={contatos}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.item}
-            onPress={() =>
-              navigation.navigate("EditarContato", {
-                contato: item
-              })
-            }
-          >
-            <Text style={styles.nome}>{item.nome}</Text>
-            <Text>{item.telefone}</Text>
-          </TouchableOpacity>
+          <View style={styles.item}>
+
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("EditarContato", {
+                  contato: item,
+                  atualizarLista: buscarContatos
+                })
+              }
+            >
+              <Text style={styles.nome}>{item.nome}</Text>
+              <Text>{item.telefone}</Text>
+            </TouchableOpacity>
+
+            <Button
+              title="Deletar"
+              onPress={() => deletarContato(item.id)}
+            />
+
+          </View>
         )}
       />
     </View>
   );
 }
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    gap: 10
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold'
-  },
-  input: {
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 5
-  },
-  item: {
-    padding: 10,
-    borderBottomWidth: 1
-  },
-  nome: {
-    fontWeight: 'bold'
-  }
-});
